@@ -19,9 +19,9 @@ MOTOR_PIN1 = 22 # Enable Pin
 MOTOR_PIN2 = 27 # Input Pin
 MOTOR_PIN3 = 17 # Input Pin
 
-GPIO.setup(Motor1,GPIO.OUT)
-GPIO.setup(Motor2,GPIO.OUT)
-GPIO.setup(Motor3,GPIO.OUT)
+GPIO.setup(MOTOR_PIN1,GPIO.OUT)
+GPIO.setup(MOTOR_PIN2,GPIO.OUT)
+GPIO.setup(MOTOR_PIN3,GPIO.OUT)
 
 # Function to turn on the motor
 def turnMotor():
