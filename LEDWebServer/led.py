@@ -126,21 +126,21 @@ def receiveEmail(email_receiver, email_password, imap_url, n_email_to_receive):
 def turnMotorBasedOnAnswer(): 
     time.sleep(5)
     subject, sender, body = receiveEmail(email_receiver, email_password, imap_url, n_email_to_receive)
-    if body.count("The temperature is") and display_temperature_message == True:
-        print("\nSender:", sender)
-        print("Subject:", subject)
-        print("Message:", body)
-        display_temperature_message = False
-    elif body.upper().count("YES"): 
+#     if body.count("The temperature is") and display_temperature_message == True:
+#         print("\nSender:", sender)
+#         print("Subject:", subject)
+#         print("Message:", body)
+#         display_temperature_message = False
+    if body.upper().count("YES"): 
         print("Fan is activated")
         isMotorOn = 1
         turnMotor()
-        sendEmail(email_sender, email_receiver, email_password, subject, "Fan is activated")
-        quit()
+#         sendEmail(email_sender, email_receiver, email_password, subject, "Fan is activated")
+#         quit()
     elif body.upper().count("NO"):
         print("Fan is not activated") 
-        sendEmail(email_sender, email_receiver, email_password, subject, "Fan is not activated")
-        quit() 
+#         sendEmail(email_sender, email_receiver, email_password, subject, "Fan is not activated")
+#         quit() 
     else: pass
 
 @app.route("/")
