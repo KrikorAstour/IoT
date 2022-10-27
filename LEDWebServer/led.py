@@ -125,6 +125,7 @@ def receiveEmail(email_receiver, email_password, imap_url, n_email_to_receive):
 
 def turnMotorBasedOnAnswer(): 
     time.sleep(5)
+    global isMotorOn
     subject, sender, body = receiveEmail(email_receiver, email_password, imap_url, n_email_to_receive)
 #     if body.count("The temperature is") and display_temperature_message == True:
 #         print("\nSender:", sender)
