@@ -10,9 +10,9 @@ MFRC522::MIFARE_Key key;
 byte nuidPICC[4];
 
 
-const char* ssid = "VIRGIN305";
-const char* password = "CAF6D225";
-const char* mqtt_server = "192.168.2.85 ";
+const char* ssid = "TP-Link_2AD8";
+const char* password = "14730078";
+const char* mqtt_server = "192.168.0.183 ";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
