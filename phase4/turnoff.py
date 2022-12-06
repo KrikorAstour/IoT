@@ -1,0 +1,17 @@
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+MOTOR_PIN1 = 22 # Enable Pin
+MOTOR_PIN2 = 27 # Input Pin
+MOTOR_PIN3 = 17 # Input Pin
+
+GPIO.setup(MOTOR_PIN1,GPIO.OUT)
+GPIO.setup(MOTOR_PIN2,GPIO.OUT)
+GPIO.setup(MOTOR_PIN3,GPIO.OUT)
+GPIO.setup(21, GPIO.OUT)
+GPIO.output(21,GPIO.LOW)
+
+GPIO.output(MOTOR_PIN1,GPIO.LOW)
+GPIO.output(MOTOR_PIN2,GPIO.LOW)
+GPIO.output(MOTOR_PIN3,GPIO.LOW)

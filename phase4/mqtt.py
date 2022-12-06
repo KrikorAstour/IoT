@@ -92,9 +92,7 @@ def getRfid():
     return "yo"
 #     sendEmail(userInfo)
     
-        
-    
-        
+                
     
 
 def on_message(client, userdata, message):
@@ -103,21 +101,7 @@ def on_message(client, userdata, message):
    
     tagNum = str(message.payload)[3:14]
     print("get rfid"+getRfid())
-#     intValue = str(message.payload[2,4])
-    
-#     intValue = int(test[2:5])
-#     pResistor = intValue
-#     print(test)
-#     if intValue <= 40:
-#         GPIO.output(led, GPIO.HIGH)
-#         led2status = 1
-#         sendEmail(str(message.payload))
-#         GPIO.output(led, GPIO.LOW)
-    
-        
-    
-#     else
-#         GPIO.output(led, GPIO.LOW)
+
     
 
 def main():

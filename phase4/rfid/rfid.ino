@@ -2,17 +2,26 @@
 #include <MFRC522.h>
 #include <PubSubClient.h>
 #include <ESP8266WiFi.h>
+#include <DHT.h>
+#include "DHT.h"
+#define DHTTYPE DHT11
 #define SS_PIN D8
 #define RST_PIN D0
 MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the class
 MFRC522::MIFARE_Key key;
 // Init array that will store new NUID
 byte nuidPICC[4];
+const int DHTPin = D4;
+DHT dht(DHTPin, DHTTYPE);
 
+//Timers auxiliar variables
+long now = millis();
+long lastMeasure = 0;
 
 const char* ssid = "MAifon";
 const char* password = "connectNow";
 const char* mqtt_server = "172.20.10.13";
+
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -61,6 +70,7 @@ void reconnect() {
   }
 }
 void setup() {
+dht.begin();
 Serial.begin(115200);
 setup_wifi();
 client.setServer(mqtt_server, 1883);
@@ -80,6 +90,51 @@ Serial.print(F("Using the following key:"));
 printHex(key.keyByte, MFRC522::MF_KEY_SIZE);
 }
 void loop() {
+  float pResistor = analogRead(A0);
+  String dataString = String(pResistor);
+  
+  delay(1500);
+  if (!client.connected()) {
+    reconnect();
+  }
+  if (!client.loop())
+    client.connect("ESP8266Client");
+ now = millis();
+
+ if (now - lastMeasure > 1000) {
+    lastMeasure = now;
+
+    float h = dht.readHumidity();
+    float t = dht.readTemperature();
+    float f = dht.readTemperature(true);
+
+    if (isnan(h) || isnan(t) || isnan(f)) {
+      Serial.println("Failed to read from DHT sensor!");
+      return;
+    }
+
+    static char temperatureTemp[8];
+    dtostrf(t, 6, 2, temperatureTemp);
+
+    static char humidityTemp[8];
+    dtostrf(h, 6, 2, humidityTemp);
+
+    client.publish("/esp8266/temperature", temperatureTemp);
+    client.publish("/esp8266/humidity", humidityTemp);
+    
+    Serial.println(pResistor);
+    Serial.print("Humidity: ");
+    Serial.print(h);
+    Serial.print("\t Temperature: ");
+    Serial.print(t);
+    Serial.print(" *C ");
+    Serial.print("");
+  }
+
+  static char photoresist[8];
+  dtostrf(pResistor, 6, 2, photoresist);
+  client.publish("/esp8266/resistor", photoresist);
+  
 // Reset the loop if no new card present on the sensor/reader. This saves the entire process when
 
 if ( ! rfid.PICC_IsNewCardPresent())
@@ -122,9 +177,7 @@ if (!client.connected()) {
   if (!client.loop())
     client.connect("ESP8266Client");
  Serial.println();
-
 hex.toCharArray(tagnum, 14);
-
 client.publish("/esp8266/data", tagnum);
 delay(5000);
 }
