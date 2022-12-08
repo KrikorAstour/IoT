@@ -3,7 +3,7 @@ import sqlite3
 con = sqlite3.connect('people.db')
 c = con.cursor()
 
-c.execute(""" INSERT INTO users (tag_num, "temp", humidity, light_intensity) VALUES ('e3 24 5d 0d', 20, 30, 300)""")
+c.execute(""" INSERT INTO users (tag_num, "temp", humidity, light_intensity) VALUES ('13 05 5e 0d', 23, 0, 200)""")
 
 con.commit()
 con.close()
