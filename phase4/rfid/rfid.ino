@@ -18,13 +18,13 @@ DHT dht(DHTPin, DHTTYPE);
 long now = millis();
 long lastMeasure = 0;
 
-//const char* ssid = "MAifon";
-//const char* password = "connectNow";
-//const char* mqtt_server = "172.20.10.13";
+//const char* ssid = "";
+//const char* password = "";
+//const char* mqtt_server = "";
 
-const char* ssid = "VIRGIN305";
-const char* password = "CAF6D225";
-const char* mqtt_server = "192.168.2.85";
+const char* ssid = "";
+const char* password = "";
+const char* mqtt_server = "5";
 
 ;
 
